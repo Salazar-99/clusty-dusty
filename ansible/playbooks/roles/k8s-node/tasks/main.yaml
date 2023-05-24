@@ -1,0 +1,54 @@
+- name: Check that the OS is supported
+  ansible.builtin.assert:
+    that:
+      - "ansible_distribution == 'Ubuntu'"
+      - "ansible_distribution_version == '20.04'"
+    fail_msg: This playbook currently only supports Ubuntu 20.04
+    success_msg: OS version check successful
+
+- name: Enable ufw
+  community.general.ufw:
+    state: enabled
+    
+- name: Open regular Kubernetes API port
+  community.general.ufw:
+    rule: allow
+    port: "6443"
+    proto: tcp
+
+- name: Open other Kubernetes API port
+  community.general.ufw:
+    rule: allow
+    port: "9345"
+    proto: tcp
+
+- name: Open Flannel port
+  community.general.ufw:
+    rule: allow
+    port: "9345"
+    proto: udp
+
+- name: Open kubelet port
+  community.general.ufw:
+    rule: allow
+    port: "10250"
+    proto: tcp
+
+- name: Open etcd client port
+  community.general.ufw:
+    rule: allow
+    port: "2379"
+    proto: tcp
+
+- name: Open etcd peer port
+  community.general.ufw:
+    rule: allow
+    port: "2380"
+    proto: tcp
+
+- name: Open NodePort ports
+  community.general.ufw:
+    rule: allow
+    port: "30000:32767"
+    proto: tcp
+

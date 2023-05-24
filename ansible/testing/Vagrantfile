@@ -1,0 +1,12 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.ssh.insert_key = false
+  config.vm.define "testserver" do |testserver|
+      testserver.vm.box = "ubuntu/focal64"
+  end
+  config.vm.define "testagent" do |testagent|
+      testagent.vm.box = "ubuntu/focal64"
+  end
+end

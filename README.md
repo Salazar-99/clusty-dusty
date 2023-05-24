@@ -6,9 +6,26 @@ Kubernetes Homelab 2.0, now with more automation
 - Use Ansible to prepare nodes and install Kubernetes as well as FluxCD
 - Have FluxCD install Helm Releases for the rest of the infrastructure applications from a Git repo (GitOps automation)
   - Image registry
-  - Helm registry?
+  - Helm registry (Artifactory?)
   - Monitoring stack
-  - CNI?
-  - MetalLB?
-  - Ingress Controller
+  - CNI
+  - MetalLB
   - Storage Class
+  - Jenkins
+  - cert-manager
+- Add PR validation steps for relevant code
+  - Linting
+  - Testing
+
+## Cluster Architecture
+- RKE2
+- Podman
+- Flannel
+- MetalLB
+
+## Project Requirements
+- Ansible
+  - SSH-key access to remote hosts configured in ~/.ssh/config
+- Vagrant (for testing only)
+  - Configure access to test machine in ~/.ssh/config using `vagrant ssh-config` output
+
