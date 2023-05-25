@@ -1,0 +1,22 @@
+- name: Download and run installer
+  shell:
+    cmd: "curl -sfL https://get.rke2.io | sh -"
+
+- name: Enable rke2-server service 
+  ansible.builtin.systemd:
+    name: rke2-server.service
+    enabled: true
+
+- name: Start rke2-server service 
+  ansible.builtin.systemd:
+    name: rke2-server.service
+    state: started
+
+- name: Copy down token file from server
+  ansible.builtin.fetch:
+    src: /var/lib/rancher/rke2/server/node-token
+    dest: /tmp/{{ inventory_hostname }}
+
+- name: Get kubeconfig
+  shell:
+    cmd: cat /etc/rancher/rke2/rke2.yaml

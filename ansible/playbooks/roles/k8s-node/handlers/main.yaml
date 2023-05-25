@@ -1,0 +1,8 @@
+- name: Reload ufw
+  community.general.ufw:
+    state: reloaded
+
+- name: Reload NetworkManager
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: reloaded

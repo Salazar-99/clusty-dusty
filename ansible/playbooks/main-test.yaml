@@ -7,13 +7,16 @@
   roles:
   - role: k8s-node
 
+# TODO: Figure out why enabling ske2 service is hanging
 - name: Install RKE on servers
   hosts: testservers
+  become: true
   roles:
   - role: server
 
 - name: Install RKE on agents and join them to the cluster
   hosts: testagents
+  become: true
   roles:
   - role: agent
 

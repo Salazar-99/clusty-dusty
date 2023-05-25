@@ -7,14 +7,15 @@
   roles:
   - role: k8s-node
 
-- name: Install RKE on servers
-  hosts: servers
-  roles:
-  - role: server
+# - name: Install RKE on servers
+#   hosts: servers
+#   become: true
+#   roles:
+#   - role: server
 
-- name: Install RKE on agents and join them to the cluster
-  hosts: agents
-  roles:
-  - role: agent
+# - name: Install RKE on agents and join them to the cluster
+#   hosts: agents
+#   roles:
+#   - role: agent
 
 

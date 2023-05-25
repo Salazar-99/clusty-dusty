@@ -6,7 +6,30 @@
     fail_msg: This playbook currently only supports Ubuntu 20.04
     success_msg: OS version check successful
 
-- name: Enable ufw
+# firewalld is incompatible, see https://docs.rke2.io/known_issues#networkmanager
+- name: Stop firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
+
+- name: Disable firewalld 
+  ansible.builtin.systemd:
+    name: firewalld
+    enabled: false
+    masked: true
+
+# NetworkManager needs to be configured, see https://docs.rke2.io/known_issues#networkmanager
+- name: Create NetworkManager config directory
+  shell:
+    cmd: mkdir -p /etc/NetworkManager/conf.d/
+
+- name: Configure NetworkManager
+  copy:
+    src: rke2-canal.conf
+    dest: /etc/NetworkManager/conf.d/rke2-canal.conf
+  notify: Reload NetworkManager
+
+- name: Start ufw
   community.general.ufw:
     state: enabled
     
@@ -15,40 +38,46 @@
     rule: allow
     port: "6443"
     proto: tcp
+  notify: Reload ufw
 
 - name: Open other Kubernetes API port
   community.general.ufw:
     rule: allow
     port: "9345"
     proto: tcp
+  notify: Reload ufw
 
 - name: Open Flannel port
   community.general.ufw:
     rule: allow
     port: "9345"
     proto: udp
+  notify: Reload ufw
 
 - name: Open kubelet port
   community.general.ufw:
     rule: allow
     port: "10250"
     proto: tcp
+  notify: Reload ufw
 
 - name: Open etcd client port
   community.general.ufw:
     rule: allow
     port: "2379"
     proto: tcp
+  notify: Reload ufw
 
 - name: Open etcd peer port
   community.general.ufw:
     rule: allow
     port: "2380"
     proto: tcp
+  notify: Reload ufw
 
 - name: Open NodePort ports
   community.general.ufw:
     rule: allow
     port: "30000:32767"
     proto: tcp
-
+  notify: Reload ufw
