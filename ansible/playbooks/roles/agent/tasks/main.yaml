@@ -1,5 +1,5 @@
 - name: Download and run installer in agent mode
-  ansible.builtin.shell:
+  shell:
     cmd: curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh -
 
 - name: Enable rke2-server service 
@@ -8,12 +8,13 @@
     enabled: true
 
 - name: Create directory for config file
-  ansible.builtin.shell:
+  shell:
     cmd: mkdir -p /etc/rancher/rke2/
 
-- name: Create config file for connecting to server
-  ansible.builtin.shell:
-    cmd: "echo server: https://{{ server_ip }}:9345\ntoken: {{ }} >> /etc/rancher/rke2/config.yaml"
+- name: Upload config file for connecting to server
+  template:
+    src: config.yaml
+    dest: /etc/rancher/rke2/config.yaml
 
 - name: Start rke2-server service 
   ansible.builtin.systemd:

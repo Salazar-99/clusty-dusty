@@ -1,0 +1,2 @@
+server: "https://{{ hostvars[groups['servers'][0]]['ansible_default_ipv4']['address'] }}:9345"
+token: "{{ lookup('file', '/tmp/node-token') }}"
