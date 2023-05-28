@@ -1,4 +1,3 @@
-
 ---
 - name: Prepare all nodes
   hosts: test
@@ -7,7 +6,6 @@
   roles:
   - role: k8s-node
 
-# TODO: Figure out why enabling ske2 service is hanging
 - name: Install RKE on servers
   hosts: testservers
   become: true
@@ -19,5 +17,13 @@
   become: true
   roles:
   - role: agent
+
+- name: Update local kubeconfig
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+  - name: Update local kubeconfig
+    shell:
+      cmd: "sed -i 's/127.0.0.1/{{ hostvars[groups['servers'][0]]['ansible_default_ipv4']['address'] }}/g' ~/.kube/config"
 
 
