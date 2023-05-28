@@ -13,5 +13,5 @@ spec:
       chart: flux/charts/metallb
       sourceRef:
         kind: GitRepository
-        name: clusty-dusty
+        name: charts
   values:
