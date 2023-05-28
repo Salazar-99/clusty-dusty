@@ -1,0 +1,16 @@
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: default
+spec:
+  interval: 1m
+  releaseName: metallb
+  chart:
+    spec:
+      chart: flux/charts/metallb
+      sourceRef:
+        kind: GitRepository
+        name: clusty-dusty
+  values:

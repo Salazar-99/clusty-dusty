@@ -1,0 +1,15 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: clusty-dusty
+  namespace: default
+spec:
+  interval: 1m
+  url: https://github.com/Salazar-99/clusty-dusty/
+  ref:
+    branch: main
+  ignore: |-
+    # exclude all
+    /*
+    # include charts directory
+    !/flux/charts/
