@@ -1,0 +1,23 @@
+- name: Download and install Flux
+  shell:
+    cmd: curl -s https://fluxcd.io/install.sh | sudo bash
+
+- name: Run Flux bootstrap
+  shell:
+    cmd: |
+    flux bootstrap github \
+    --owner=Salazar-99 \
+    --repository=clusty-dusty \
+    --branch=main \
+    --path=flux/ \
+    --personal
+
+- name: Create Kustomize resource to apply HelmRelease resources
+  shell:
+    cmd: |
+    flux create kustomization helm \
+    --target-namespace=flux-system \
+    --source=clusty-dusty \
+    --path="./flux/charts/meta" \
+    --prune=true \
+    --interval=3m \

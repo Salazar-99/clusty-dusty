@@ -5,7 +5,7 @@ metadata:
   name: metallb
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 3m
   releaseName: metallb
   targetNamespace: metallb
   chart:
@@ -13,5 +13,5 @@ spec:
       chart: flux/charts/metallb
       sourceRef:
         kind: GitRepository
-        name: charts
+        name: clusty-dusty
   values:

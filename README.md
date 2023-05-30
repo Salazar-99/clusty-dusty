@@ -20,12 +20,19 @@ Kubernetes Homelab 2.0, now with more automation
   - Canal
   - Containerd
 - MetalLB
+- Longhorn
 
 ## Project Requirements
 - Ansible
   - SSH-key access to remote hosts configured in ~/.ssh/config
+  - Remote hosts configured to not require passwords for root
 - Vagrant (for testing only)
   - Configure access to test machines in ~/.ssh/config using `vagrant ssh-config` output
 - GitHub user with repo access
-  - ssh key
+  - Personal Access Token set as GITHUB_TOKEN env variable
+
+## FluxCD Flow
+- Run Flux bootstrap command to start flux and point it at this repo
+- Create a Kustomization resource which consumes the `kustomization.yaml` file in `/flux/charts/meta` in this repo
+- This file installs the `HelmRelease` resources which then reconcile all of the charts in `flux/charts`
 

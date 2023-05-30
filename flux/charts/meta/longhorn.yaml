@@ -5,7 +5,7 @@ metadata:
   name: longhorn
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 3m
   releaseName: longhorn
   targetNamespace: longhorn
   chart:
@@ -13,5 +13,5 @@ spec:
       chart: flux/charts/longhorn
       sourceRef:
         kind: GitRepository
-        name: charts
+        name: clusty-dusty
   values:

@@ -26,4 +26,10 @@
     shell:
       cmd: "sed -i 's/127.0.0.1/{{ hostvars[groups['servers'][0]]['ansible_default_ipv4']['address'] }}/g' ~/.kube/config"
 
+# - name: Bootstrap Flux
+#   hosts: 127.0.0.1
+#   connection: local
+#   roles:
+#   - role: flux
+
 
