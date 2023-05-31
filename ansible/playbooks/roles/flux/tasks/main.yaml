@@ -17,7 +17,7 @@
     cmd: |
     flux create kustomization helm \
     --target-namespace=flux-system \
-    --source=clusty-dusty \
-    --path="./flux/charts/meta" \
+    --source=flux-system \
+    --path="charts/meta" \
     --prune=true \
     --interval=3m \

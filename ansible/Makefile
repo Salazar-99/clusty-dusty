@@ -7,3 +7,7 @@ test:
 .PHONY: run
 run:
 	ansible-playbook playbooks/main.yaml -i inventory/hosts
+
+.PHONY: destroy
+destroy:
+	ansible-playbook playbooks/destroy.yaml -i inventory/hosts

@@ -1,0 +1,8 @@
+- name: Uninstall RKE2 from nodes
+  hosts: optiplex
+  become: true
+
+  tasks:
+  - name: Uninstall RKE2 from nodes
+    shell:
+      cmd: bash /usr/local/bin/rke2-uninstall.sh
