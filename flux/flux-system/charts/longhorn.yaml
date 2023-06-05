@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: metallb
+  name: longhorn
   namespace: flux-system
 spec:
   interval: 3m
-  releaseName: metallb
-  targetNamespace: metallb
+  releaseName: longhorn
+  targetNamespace: longhorn
   chart:
     spec:
-      chart: flux/charts/metallb
+      chart: flux/charts/longhorn
       sourceRef:
         kind: GitRepository
-        name: clusty-dusty
+        name: clusty-dusty-charts
   values:

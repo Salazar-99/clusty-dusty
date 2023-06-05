@@ -1,6 +1,10 @@
 # clusty-dusty
 Kubernetes Homelab 2.0, now with more automation
 
+## Current Issues
+optiplex2 pods can't connect to opitplex1 pods, seems like an issue with CoreDNS
+Flux bootstrap is misconfigured, should point to flux/flux-system directory and this should contain meta for charts
+
 ## Goals
 - High level: Create an automated workflow for installing kubernetes to Ubuntu servers and deploying infrastructure applications into the cluster
 - Use Ansible to prepare nodes and install Kubernetes as well as FluxCD
