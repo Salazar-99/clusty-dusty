@@ -4,10 +4,10 @@
 
 - name: Run Flux bootstrap
   shell:
-    cmd: |
-    flux bootstrap github \
-    --owner=Salazar-99 \
-    --repository=clusty-dusty \
-    --branch=main \
-    --path=flux/flux-system/ \
-    --personal
+    cmd: >
+      flux bootstrap github
+      --owner=Salazar-99
+      --repository=clusty-dusty
+      --branch=main
+      --path=flux/flux-system/
+      --personal
