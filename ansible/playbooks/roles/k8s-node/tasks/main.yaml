@@ -81,3 +81,9 @@
     port: "30000:32767"
     proto: tcp
   notify: Reload ufw
+
+- name: Install open-iscsi for Longhorn
+  ansible.builtin.apt:
+    name: open-iscsi
+    state: present
+

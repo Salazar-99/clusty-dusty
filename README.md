@@ -3,14 +3,13 @@ Kubernetes Homelab 2.0, now with more automation
 
 ## Current Issues
 optiplex2 pods can't connect to opitplex1 pods, seems like an issue with CoreDNS
-Flux bootstrap is misconfigured, should point to flux/flux-system directory and this should contain meta for charts
 
 ## Goals
 - High level: Create an automated workflow for installing kubernetes to Ubuntu servers and deploying infrastructure applications into the cluster
 - Use Ansible to prepare nodes and install Kubernetes as well as FluxCD
-- Have FluxCD install Helm Releases for the rest of the infrastructure applications from a Git repo (GitOps automation)
-  - Image/Helm registry (Artifactory?)
-  - Monitoring stack
+- Have FluxCD install Helm Releases for the rest of the infrastructure applications from this repo (GitOps automation)
+  - Artifactory
+  - kube-prometheus monitoring stack
   - MetalLB
   - Storage Class
   - Jenkins
@@ -33,10 +32,11 @@ Flux bootstrap is misconfigured, should point to flux/flux-system directory and 
 - Vagrant (for testing only)
   - Configure access to test machines in ~/.ssh/config using `vagrant ssh-config` output
 - GitHub user with repo access
-  - Personal Access Token set as GITHUB_TOKEN env variable
+  - Personal Access Token set as GITHUB_TOKEN env variable on orchestration machine
 
 ## FluxCD Flow
-- Run Flux bootstrap command to start flux and point it at this repo
-- Create a Kustomization resource which consumes the `kustomization.yaml` file in `/flux/charts/meta` in this repo
-- This file installs the `HelmRelease` resources which then reconcile all of the charts in `flux/charts`
+- Run Flux bootstrap task
+- Flux configures itself by looking in the `flux/flux-system/flux-system` directory
+- Flux automatically detects and applies the resources in the `flux/flux-system/helm` which kickoff installation of the Helm charts in `flux/charts`
+- To add a new charts, add it's source to `flux/charts` and add a corresponding `HelmRelease` resource in `flux/flux-system/helm`
 
