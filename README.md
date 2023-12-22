@@ -2,6 +2,7 @@
 Kubernetes Homelab 2.0, now with more automation
 
 ## Current Issues
+- Need to configure cert-manager with FluxCD
 
 ## Goals
 - High level: Create an automated workflow for installing kubernetes to Ubuntu servers and deploying infrastructure applications into the cluster
@@ -10,6 +11,7 @@ Kubernetes Homelab 2.0, now with more automation
   - kube-prometheus monitoring stack
   - Jenkins
   - cert-manager
+  - Ingress Controller
 - Add PR validation steps for relevant code
   - Linting
   - Testing
