@@ -2,16 +2,12 @@
 Kubernetes Homelab 2.0, now with more automation
 
 ## Current Issues
-optiplex2 pods can't connect to opitplex1 pods, seems like an issue with CoreDNS
 
 ## Goals
 - High level: Create an automated workflow for installing kubernetes to Ubuntu servers and deploying infrastructure applications into the cluster
-- Use Ansible to prepare nodes and install Kubernetes as well as FluxCD
 - Have FluxCD install Helm Releases for the rest of the infrastructure applications from this repo (GitOps automation)
   - Artifactory
   - kube-prometheus monitoring stack
-  - MetalLB
-  - Storage Class
   - Jenkins
   - cert-manager
 - Add PR validation steps for relevant code
@@ -20,10 +16,14 @@ optiplex2 pods can't connect to opitplex1 pods, seems like an issue with CoreDNS
 
 ## Cluster Architecture
 - RKE2
-  - Canal
-  - Containerd
-- MetalLB
-- Longhorn
+  - Canal (Calico + Flannel)
+  - Containerd runtime
+- MetalLB for loadbalancing
+- Longhorn for Storage Class
+- Artifactory for Helm and Docker repositories
+- Gitea for source code repositories
+- Jenkins for CI/CD automation
+- Kube-Prometheus-Stack for monitoring
 
 ## Project Requirements
 - Ansible
