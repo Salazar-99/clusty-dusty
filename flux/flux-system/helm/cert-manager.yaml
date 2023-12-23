@@ -27,6 +27,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cloudflare-api-token-secret
+  namespace: cert-manager
 type: Opaque
 stringData:
   api-token: VmxazY2v7HaIu_VZrvri3DBmUbOKjW-QiOQ7m6HX
@@ -49,3 +50,7 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+      selector:
+          dnsZones:
+          - 'gerardosalazar.com'
+          - '*.gerardosalazar.com'

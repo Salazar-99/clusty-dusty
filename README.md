@@ -2,10 +2,7 @@
 Kubernetes Homelab 2.0, now with more automation
 
 ## To-Do
-- Use default nginx-ingress
-- Route DNS from *.gerardosalazar.com to homelab IP
-- Add Ingress for *.gerardosalazar.com with annotation for automatic certs and grafana entry
-- One-by-one deploy these applications into the cluster with FluxCD, add them to ingress
+- One-by-one deploy these applications into the cluster with FluxCD and add corresponding ingress
   - Gitlab
   - Jenkins
   - Artifactory
