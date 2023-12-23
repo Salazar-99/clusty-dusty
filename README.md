@@ -1,8 +1,15 @@
 # clusty-dusty
 Kubernetes Homelab 2.0, now with more automation
 
-## Current Issues
-- Need to configure cert-manager with FluxCD
+## To-Do
+- Use default nginx-ingress
+- Route DNS from *.gerardosalazar.com to homelab IP
+- Add Ingress for *.gerardosalazar.com with annotation for automatic certs and grafana entry
+- One-by-one deploy these applications into the cluster with FluxCD, add them to ingress
+  - Gitlab
+  - Jenkins
+  - Artifactory
+- Start writing Seer using my homelab
 
 ## Goals
 - High level: Create an automated workflow for installing kubernetes to Ubuntu servers and deploying infrastructure applications into the cluster
@@ -23,7 +30,7 @@ Kubernetes Homelab 2.0, now with more automation
 - MetalLB for loadbalancing
 - Longhorn for Storage Class
 - Artifactory for Helm and Docker repositories
-- Gitea for source code repositories
+- GitLab for source code repositories
 - Jenkins for CI/CD automation
 - Kube-Prometheus-Stack for monitoring
 
@@ -40,5 +47,5 @@ Kubernetes Homelab 2.0, now with more automation
 - Run Flux bootstrap task
 - Flux configures itself by looking in the `flux/flux-system/flux-system` directory
 - Flux automatically detects and applies the resources in the `flux/flux-system/helm` which kickoff installation of the Helm charts in `flux/charts`
-- To add a new charts, add it's source to `flux/charts` and add a corresponding `HelmRelease` resource in `flux/flux-system/helm`
+- To add a new chart, add it's source to `flux/charts` and add a corresponding `HelmRelease` resource in `flux/flux-system/helm`
 
