@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitlab
+  labels:
+    name: gitlab
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  interval: 3m
+  releaseName: gitlab
+  targetNamespace: gitlab
+  dependsOn:
+  - name: monitoring
+  chart:
+    spec:
+      chart: flux/charts/gitlab
+      sourceRef:
+        kind: GitRepository
+        name: clusty-dusty-charts
+  values:
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: gitlab
+  namespace: gitlab
+spec:
+  rules:
+  - host: gitlab.gerardosalazar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: gitlab-webservice-default
+            port:
+              number: 8080
+  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  - hosts:
+    - gitlab.gerardosalazar.com
+    secretName: gitlab-cert # < cert-manager will store the created certificate in this secret.

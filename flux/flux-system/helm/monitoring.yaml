@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    name: monitoring
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: monitoring
+  namespace: monitoring
+spec:
+  interval: 3m
+  releaseName: monitoring
+  targetNamespace: monitoring
+  dependsOn:
+  - name: cert-manager
+  chart:
+    spec:
+      chart: flux/charts/monitoring
+      sourceRef:
+        kind: GitRepository
+        name: clusty-dusty-charts
+  values:
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: monitoring
+  namespace: monitoring
+spec:
+  rules:
+  - host: grafana.gerardosalazar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: monitoring-grafana
+            port:
+              number: 80
+  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  - hosts:
+    - grafana.gerardosalazar.com
+    secretName: monitoring-cert # < cert-manager will store the created certificate in this secret.

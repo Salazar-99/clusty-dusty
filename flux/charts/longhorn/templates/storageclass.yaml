@@ -17,7 +17,7 @@ data:
     reclaimPolicy: "{{ .Values.persistence.reclaimPolicy }}"
     volumeBindingMode: Immediate
     parameters:
-      numberOfReplicas: "{{ .Values.persistence.defaultClassReplicaCount }}"
+      numberOfReplicas: 1
       staleReplicaTimeout: "30"
       fromBackup: ""
       {{- if .Values.persistence.defaultFsType }}
