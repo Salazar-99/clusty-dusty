@@ -24,35 +24,3 @@ spec:
         kind: GitRepository
         name: clusty-dusty-charts
   values:
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cloudflare-api-token-secret
-  namespace: cert-manager
-type: Opaque
-stringData:
-  api-token: VmxazY2v7HaIu_VZrvri3DBmUbOKjW-QiOQ7m6HX
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt
-spec:
-  acme:
-    email: gfsalazar01@gmail.com
-    # Production Let's Encrypt server
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      # Secret resource that will be used to store the account's private key.
-      name: tls-private-key
-    solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
-      selector:
-          dnsZones:
-          - 'gerardosalazar.com'
-          - '*.gerardosalazar.com'
