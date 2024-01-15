@@ -1,0 +1,46 @@
+# This first applies all manifests in the flux/infra folder (HelmReleases for cert-manager and CRDs for monitoring)
+# and then applies the manifests in the flux/config folder (ClusterIssuer)
+# and then applies the manifests in the flux/apps folder (HelmReleases for apps)
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./flux/infra/"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra
+  interval: 5m
+  path: "./flux/config/"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: config
+  interval: 5m
+  path: "./flux/apps/"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
