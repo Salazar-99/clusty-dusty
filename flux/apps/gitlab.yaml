@@ -12,6 +12,7 @@ metadata:
   name: gitlab
   namespace: flux-system
 spec:
+  timeout: 10m
   interval: 3m
   releaseName: gitlab
   targetNamespace: gitlab

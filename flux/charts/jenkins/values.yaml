@@ -19,8 +19,8 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "salazar99/images"
-  # tag: "2.401.1-jdk11"
-  tagLabel: jenkins-k8s-gitlab
+  tag: "jenkins-k8s-gitlab"
+  # tagLabel: jenkins-k8s-gitlab
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
