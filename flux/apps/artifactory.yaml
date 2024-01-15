@@ -15,8 +15,6 @@ spec:
   interval: 3m
   releaseName: artifactory
   targetNamespace: artifactory
-  dependsOn:
-  - name: gitlab
   chart:
     spec:
       chart: flux/charts/artifactory

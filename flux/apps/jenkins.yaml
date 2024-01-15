@@ -15,8 +15,6 @@ spec:
   interval: 3m
   releaseName: jenkins
   targetNamespace: jenkins
-  dependsOn:
-  - name: gitlab
   chart:
     spec:
       chart: flux/charts/jenkins

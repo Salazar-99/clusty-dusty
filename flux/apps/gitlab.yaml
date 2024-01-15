@@ -15,8 +15,6 @@ spec:
   interval: 3m
   releaseName: gitlab
   targetNamespace: gitlab
-  dependsOn:
-  - name: monitoring
   chart:
     spec:
       chart: flux/charts/gitlab

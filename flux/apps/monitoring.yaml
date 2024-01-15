@@ -15,8 +15,6 @@ spec:
   interval: 3m
   releaseName: monitoring
   targetNamespace: monitoring
-  dependsOn:
-  - name: cert-manager
   chart:
     spec:
       chart: flux/charts/monitoring
