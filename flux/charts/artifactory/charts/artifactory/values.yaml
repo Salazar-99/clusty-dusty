@@ -1612,7 +1612,7 @@ nginx:
 
   service:
     ## For minikube, set this to NodePort, elsewhere use LoadBalancer
-    type: LoadBalancer
+    type: NodePort
     ssloffload: false
     ## For supporting whitelist on the Nginx LoadBalancer service
     ## Set this to a list of IP CIDR ranges

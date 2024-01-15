@@ -442,9 +442,6 @@ Create the name of the service account for Jenkins backup to use
 Create a full tag name for controller image
 */}}
 {{- define "controller.tag" -}}
-{{- if .Values.controller.tag -}}
-    {{- .Values.controller.tag -}}
-{{- else -}}
 {{- if .Values.controller.tagLabel -}}
     {{- default (printf "%s-%s" .Chart.AppVersion .Values.controller.tagLabel) .Values.controller.tag -}}
 {{- else -}}
