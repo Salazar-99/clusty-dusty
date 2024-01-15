@@ -10,7 +10,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: jenkins
-  namespace: jenkins
+  namespace: flux-system
 spec:
   interval: 3m
   releaseName: jenkins
