@@ -65,10 +65,15 @@ global:
     hostSuffix:
     https: true
     externalIP:
-    ssh: ~
-    gitlab: {}
-    minio: {}
-    registry: {}
+    ssh: gitlab.gerardosalazar.com
+    gitlab:
+      name: gitlab.gerardosalazar.com
+      https: true
+    minio:
+      name: minio.gerardosalazar.com
+      https: true
+    registry:
+      name: registry.gerardosalazar.com
     tls: {}
     smartcard: {}
     kas: {}
@@ -765,7 +770,7 @@ global:
     # secret:
     # key:
     tls:
-      enabled: false
+      enabled: true
 
   ## https://docs.gitlab.com/charts/charts/globals#configure-webservice
   webservice:

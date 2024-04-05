@@ -24,30 +24,28 @@ spec:
         name: clusty-dusty-charts
   values:
 ---
-# TODO: Finish filling out later
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   annotations:
-#     # add an annotation indicating the issuer to use.
-#     cert-manager.io/cluster-issuer: letsencrypt
-#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#   name: jenkins
-#   namespace: jenkins
-# spec:
-#   rules:
-#   - host: jenkins.gerardosalazar.com
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: /
-#         backend:
-#           service:
-#           # TODO: Fill this in with the actual jenkins UI
-#             name: 
-#             port:
-#               number: 
-#   tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
-#   - hosts:
-#     - jenkins.gerardosalazar.com
-#     secretName: jenkins-cert # < cert-manager will store the created certificate in this secret.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: jenkins
+  namespace: jenkins
+spec:
+  rules:
+  - host: jenkins.gerardosalazar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: jenkins
+            port:
+              number: 8080
+  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  - hosts:
+    - jenkins.gerardosalazar.com
+    secretName: jenkins-cert # < cert-manager will store the created certificate in this secret.
