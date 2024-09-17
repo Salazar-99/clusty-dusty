@@ -1,51 +1,51 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: artifactory
-  labels:
-    name: artifactory
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: artifactory
-  namespace: flux-system
-spec:
-  timeout: 10m
-  interval: 3m
-  releaseName: artifactory
-  targetNamespace: artifactory
-  chart:
-    spec:
-      chart: flux/charts/artifactory
-      sourceRef:
-        kind: GitRepository
-        name: clusty-dusty-charts
-  values:
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    # add an annotation indicating the issuer to use.
-    cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  name: artifactory
-  namespace: artifactory
-spec:
-  rules:
-  - host: artifactory.gerardosalazar.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: artifactory
-            port:
-              number: 8082
-  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
-  - hosts:
-    - artifactory.gerardosalazar.com
-    secretName: artifactory-cert # < cert-manager will store the created certificate in this secret.
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: artifactory
+#   labels:
+#     name: artifactory
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: artifactory
+#   namespace: flux-system
+# spec:
+#   timeout: 10m
+#   interval: 3m
+#   releaseName: artifactory
+#   targetNamespace: artifactory
+#   chart:
+#     spec:
+#       chart: flux/charts/artifactory
+#       sourceRef:
+#         kind: GitRepository
+#         name: clusty-dusty-charts
+#   values:
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     # add an annotation indicating the issuer to use.
+#     cert-manager.io/cluster-issuer: letsencrypt
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#   name: artifactory
+#   namespace: artifactory
+# spec:
+#   rules:
+#   - host: artifactory.gerardosalazar.com
+#     http:
+#       paths:
+#       - pathType: Prefix
+#         path: /
+#         backend:
+#           service:
+#             name: artifactory
+#             port:
+#               number: 8082
+#   tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+#   - hosts:
+#     - artifactory.gerardosalazar.com
+#     secretName: artifactory-cert # < cert-manager will store the created certificate in this secret.
